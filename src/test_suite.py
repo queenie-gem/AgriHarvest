@@ -21,6 +21,7 @@ from datetime import datetime, timedelta
 # Ensure src is in sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from predictor import HarvestPredictor, calculate_harvest_window, validate_input, REQUIRED_FEATURES
+from data_preparation import generate_nigerian_agronomic_dataset
 
 PASS = "[PASS]"
 FAIL = "[FAIL]"
@@ -37,6 +38,16 @@ def run_test(label, test_func):
         print(f"  {FAIL} {label}: {type(e).__name__} - {e}")
         return False
 
+
+
+def test_fertilizer_labels_are_canonical():
+    """Regression test: generated data must use the same fertilizer labels as the UI."""
+    allowed = {'NPK', 'Urea', 'Organic Manure', 'No Fertilizer'}
+    df = generate_nigerian_agronomic_dataset(num_records=500)
+    observed = set(df['Fertilizer'].dropna().unique())
+    assert observed <= allowed, f"Unexpected fertilizer labels generated: {observed - allowed}"
+    assert 'None' not in observed, "Legacy fertilizer label 'None' must not be generated."
+    assert df['Fertilizer'].notna().all(), "Generated fertilizer values must not be missing."
 
 def test_category_1_all_12_months():
     """Test 1: Verify calculate_harvest_window across all 12 months."""
@@ -183,6 +194,7 @@ def main():
     print("=" * 65)
     
     tests = [
+        ("Fertilizer labels remain canonical", test_fertilizer_labels_are_canonical),
         ("1. Harvest windows across all 12 months", test_category_1_all_12_months),
         ("2. December-to-January transitions and leap years", test_category_2_transitions_and_leap_years),
         ("3. Month-only input without fabricated exact day", test_category_3_month_only_no_fabricated_day),
