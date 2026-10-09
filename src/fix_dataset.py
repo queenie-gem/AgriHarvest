@@ -3,9 +3,9 @@ import pandas as pd
 for path in ['data/raw/nigerian_crop_harvest_data.csv', 'data/processed/cleaned_crop_harvest_data.csv']:
     df = pd.read_csv(path)
 
-    # Fix 1: Fertilizer NaN => 'None'
+    # Fix 1: Fertilizer NaN => canonical label 'No Fertilizer'
     missing_before = int(df['Fertilizer'].isnull().sum())
-    df['Fertilizer'] = df['Fertilizer'].fillna('None')
+    df['Fertilizer'] = df['Fertilizer'].fillna('No Fertilizer')
     missing_after = int(df['Fertilizer'].isnull().sum())
     print(f"{path}")
     print(f"  Fertilizer NaN fixed: {missing_before} -> {missing_after}")
