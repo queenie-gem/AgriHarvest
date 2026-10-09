@@ -1,0 +1,6 @@
+Model,Problem_Type,MAE (Days),RMSE (Days),R2_Score
+Gradient Boosting Regressor,Regression,5.04,7.64,0.995
+Random Forest Regressor,Regression,5.99,9.13,0.9928
+Linear Regression,Regression,6.43,9.25,0.9926
+Ridge Regression,Regression,6.44,9.28,0.9926
+Decision Tree Regressor,Regression,7.58,11.17,0.9892

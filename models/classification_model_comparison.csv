@@ -1,0 +1,5 @@
+Model,Problem_Type,Accuracy,Precision,Recall,F1_Score
+Gradient Boosting Classifier,Classification,0.7188,0.7278,0.7188,0.7192
+Random Forest Classifier,Classification,0.6979,0.7134,0.6979,0.6997
+Decision Tree Classifier,Classification,0.5875,0.6999,0.5875,0.5984
+Logistic Regression,Classification,0.4708,0.4622,0.4708,0.4604
