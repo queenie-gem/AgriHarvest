@@ -19,7 +19,7 @@ Features Included (Strictly 12 required inputs + target):
 6. Rainfall: Rainfall in mm
 7. Soil_Moisture: [Low, Medium, High]
 8. Nutrient_Level: [Poor, Fair, Good]
-9. Fertilizer: [NPK, Urea, Organic Manure, None]
+9. Fertilizer: [NPK, Urea, Organic Manure, No Fertilizer]
 10. Weed_Competition: [Low, Medium, High]
 11. Planting_Window: [Early, Optimal, Late]
 12. Days_to_Maturity: Baseline biological days to maturity
@@ -159,7 +159,7 @@ CROP_PROFILES = {
         'dtm_range': (270, 365),      # 9 to 12+ months
         'optimal_planting_months': ['March', 'April', 'May', 'June', 'September', 'October'],
         'suitable_seasons': ['Rainy', 'Dry'],
-        'preferred_fertilizer': ['NPK', 'Organic Manure', 'None'],
+        'preferred_fertilizer': ['NPK', 'Organic Manure', 'No Fertilizer'],
         'heat_tolerance_limit': 36.0,
         'moisture_need': 'Medium'
     },
@@ -310,7 +310,7 @@ def generate_nigerian_agronomic_dataset(num_records=2200):
             stress_adjustment += base_dtm * random.uniform(0.01, 0.05)
             
         # 2. Nutrient Deficiency / Fertilizer effect
-        if nutrient_level == 'Poor' and fertilizer == 'None':
+        if nutrient_level == 'Poor' and fertilizer == 'No Fertilizer':
             stress_adjustment += base_dtm * random.uniform(0.05, 0.12)
         elif nutrient_level == 'Good' and fertilizer in ['NPK', 'Organic Manure']:
             stress_adjustment -= base_dtm * random.uniform(0.02, 0.05) # Vigorous healthy growth
